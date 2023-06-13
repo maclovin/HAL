@@ -1,4 +1,14 @@
-all: install_golang install_nodejs install_amass install_exploitdb install_clairvoyance install_ngrok install_msf install_xsstrike
+all: install_golang \
+	install_nodejs \
+	install_amass \
+	install_exploitdb \
+	install_clairvoyance \
+	install_ngrok \
+	install_msf \
+	install_xsstrike \
+	install_seclists \
+	install_ffuf
+
 .PHONY: all
 
 install_golang:
@@ -15,11 +25,12 @@ install_nodejs:
 	node -v
 
 install_amass:
-	sudo git clone https://github.com/OWASP/Amass.git
-	cd Amass && sudo go mod download
-	cd Amass && sudo go build -o ./amass ./cmd/amass/*
-	sudo mv ./Amass/amass /usr/local/bin
-	sudo rm -rf Amass
+	sudo wget https://github.com/owasp-amass/amass/releases/download/v3.23.2/amass_Linux_i386.zip
+	sudo 7z x ./amass_Linux_i386.zip
+	sudo chmod 0665 ./amass_Linux_i386
+	sudo mv ./amass_Linux_i386 /usr/local/
+	sudo ln -sf /usr/local/amass_Linux_i386/amass /usr/local/bin/amass
+	sudo rm -rf amass_Linux_i386
 	amass
 
 install_exploitdb:
@@ -47,5 +58,26 @@ install_msf:
 install_xsstrike:
 	sudo git clone https://github.com/s0md3v/XSStrike.git
 	sudo mv ./XSStrike /usr/local/
+	sudo chmod +x /usr/local/XSStrike/xsstrike.py
+	sudo pip install -r /usr/local/XSStrike/requirements.txt
 	sudo ln -sf /usr/local/XSStrike/xsstrike.py /usr/local/bin/xsstrike
 	sudo rm -rf ./XSStrike
+
+install_seclists:
+	sudo git clone https://github.com/danielmiessler/SecLists.git 
+	sudo mv ./SecLists /opt/seclists
+
+install_ffuf:
+	sudo git clone https://github.com/ffuf/ffuf;
+	cd ffuf && sudo go get && sudo go build
+	sudo mv ./ffuf /usr/local/ffuf
+	sudo ln -sf /usr/local/ffuf/ffuf /usr/bin/ffuf
+
+install_awscli:
+	sudo curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+	sudo ./aws/install
+	sudo rm -rf ./aws
+
+install_s3scanner:
+	pip3 install s3scanner
+	python3 -m S3Scanner

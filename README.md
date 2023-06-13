@@ -1,7 +1,10 @@
 # HAL
 Automate your Offensive Hacker Operations
 
-### Installed Tools
+
+## Tools
+
+### Installed
 - Nmap
 - Sqlmap
 - Tcpdump
@@ -27,11 +30,23 @@ Automate your Offensive Hacker Operations
 - Hashcat
 - John
 - Hping3
+- Sqlite3
+- Seclists
+- FFUF
+- AWS CLI
+- S3Scanner
 
 ### To be installed
-- Fuff
+- GraphQL Path Enum
+- GraphQLMap
+- HTTPProbe
+- Assetfinder
+- Kiterunner
+- Arjun
+- Gobuster
 - Powershell
 - WPScan
+- WPfinger
 - Bed
 - Sherlock
 - Impacket Scripts
